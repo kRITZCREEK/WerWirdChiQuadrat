@@ -1,0 +1,77 @@
+h1 {
+    color: #d1dc48!important;
+    text-align: center;
+}
+h5 {
+    color: #d1dc48!important;
+    text-align: center;;
+}
+
+body {
+    //background-size: 100%;
+    background-color: #1d2939!important;
+    //background-image: url("http://upload.wikimedia.org/wikipedia/de/1/1f/WerWirdMillion%C3%A4r.svg");
+}
+
+.answer {
+    background-color: #ee6456!important;
+    color: #1d2939!important;
+    text-align: center;
+    font-size: larger!important;
+}
+
+.answer-label {
+    font-size: large;
+    text-align: center;
+    color: #d1dc48!important;
+}
+
+#main {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+::-webkit-input-placeholder {
+    color: #d1dc48!important;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #d1dc48!important;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #d1dc48!important;
+}
+
+:-ms-input-placeholder {
+    color: #d1dc48!important;
+}
+
+button.submit-btn {
+    background-color: #1caf9a!important;
+    color: #1d2939!important;
+}
+
+div.result {
+    background-color: #1caf9a;
+    color: #1d2939!important;
+    text-align: center;
+    font-size: larger;
+    padding: 10px;
+    visibility: hidden;
+}
+
+div.result.signifikant {
+    visibility: visible;
+}
+
+div.result.unsignifikant {
+    visibility: visible;
+    background-color: #ee6456;
+}
+
+//#1d2939
+//#1caf9a
+//#ffffff
+//#ee6456
+//#d1dc48
