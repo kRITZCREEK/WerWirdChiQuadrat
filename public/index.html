@@ -7,78 +7,95 @@
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="css/foundation.css"/>
     <script src="js/vendor/modernizr.js"></script>
+    <script src="js/vendor/jquery.js"></script>
 </head>
 <body>
-    <div class="row">
-        <div class="large-12 columns">
-            <h1>Wer wird Millionär?</h1>
-        </div>
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Wer wird Millionär?</h1>
     </div>
-    <hr/>
+</div>
+<hr/>
 
-    <h5>Wie hat sich das Publikum entschieden?</h5>
+<h5>Wie hat sich das Publikum entschieden?</h5>
 
-    <div class="row">
-        <form>
-            <div class="row">
-                <div class="small-6 columns">
-                    <label class="answer-label" for="answer-a">A</label>
-                    <input type="number" class="answer" id="answer-a" placeholder="Antwort A"/>
-                </div>
-                <div class="small-6 columns">
-                    <label class="answer-label">B</label>
-                    <input type="number" class="answer" placeholder="Antwort B"/>
-                </div>
+<div class="row">
+    <form>
+        <div class="row">
+            <div class="small-6 columns">
+                <label class="answer-label" for="answer-a">A</label>
+                <input type="number" class="answer" id="answer-a" placeholder="Antwort A"/>
             </div>
-            <div class="row">
-                <div class="small-6 columns">
-                    <label class="answer-label">C</label>
-                    <input type="number" class="answer" placeholder="Antwort C"/>
-                </div>
-                <div class="small-6 columns">
-                    <label class="answer-label">D</label>
-                    <input type="number" class="answer" placeholder="Antwort D"/>
-                </div>
+            <div class="small-6 columns">
+                <label class="answer-label">B</label>
+                <input type="number" class="answer" id="answer-b" placeholder="Antwort B"/>
             </div>
-        </form>
-    </div>
-
-    <div class="row">
-        <div class="small-6 small-centered columns end">
-            <button class="medium button submit-btn" id="submitBtn">Berechne Signifikanz</button>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="small-6 small-centered columns end">
-            <div class="result" id="result"></div>
+        <div class="row">
+            <div class="small-6 columns">
+                <label class="answer-label">C</label>
+                <input type="number" class="answer" id="answer-c" placeholder="Antwort C"/>
+            </div>
+            <div class="small-6 columns">
+                <label class="answer-label">D</label>
+                <input type="number" class="answer" id="answer-d" placeholder="Antwort D"/>
+            </div>
         </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="small-6 small-centered columns end">
+        <button class="medium button submit-btn" id="submitBtn">Berechne Signifikanz</button>
     </div>
+</div>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script>
-        $(document).foundation();
-        $(function(){
-            function setSignifikant(){
-                var el = document.getElementById("result");
-                el.innerText = "Signifikant";
-                el.setAttribute("class", "result signifikant");
-            }
-
-            function setUnsignifikant(){
-                var el = document.getElementById("result");
-                el.innerText = "Unsignifikant";
-                el.setAttribute("class", "result unsignifikant");
-            }
-
-            var submitBtn = $("#submitBtn");
-            submitBtn.on('click', function(e){
-                e.preventDefault();
-                //setSignifikant();
-                setUnsignifikant();
-            });
-        }());
-    </script>
+<div class="row">
+    <div class="small-6 small-centered columns end">
+        <div class="result" id="result"></div>
+    </div>
+</div>
 </body>
+
+<script src="js/foundation.min.js"></script>
+<script src="js/newtonSolver.js"></script>
+<script src="js/chisquared.js"></script>
+<script>
+    $(document).foundation();
+    $(function () {
+        function setSignifikant(notwendig) {
+            var el = document.getElementById("result");
+            el.innerText = "Notwendig für Signifikanz: " + notwendig;
+            el.setAttribute("class", "result signifikant");
+        }
+
+        function setUnsignifikant(notwendig) {
+            var el = document.getElementById("result");
+            el.innerText = "Notwendig für Signifikanz: " + notwendig;
+            el.setAttribute("class", "result unsignifikant");
+        }
+
+        var submitBtn = $("#submitBtn");
+
+        function getObservedValues() {
+            return [
+                parseFloat($('#answer-a').val()),
+                parseFloat($('#answer-b').val()),
+                parseFloat($('#answer-c').val()),
+                parseFloat($('#answer-d').val())];
+        }
+
+        submitBtn.on('click', function (e) {
+            e.preventDefault();
+            var os = getObservedValues();
+            var notwendig = minimalRequired(os);
+            if (notwendig < 100) {
+                setSignifikant(notwendig);
+            } else {
+                setUnsignifikant(notwendig);
+            }
+
+        });
+    }());
+</script>
 </html>
